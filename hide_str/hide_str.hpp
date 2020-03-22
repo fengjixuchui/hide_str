@@ -40,11 +40,9 @@ namespace hide_string
 			int32_t d = v[3] + k[3];
 			for (int32_t i = 0; i < num_rounds; i++)
 			{
-				a += (b << 4) + rol(k[sum % 4 + 4], b) ^
-					d + sum ^ (b >> 5) + rol(k[sum % 4], b >> 27);
+				a += (b << 4) + rol(k[sum % 4 + 4], b) ^ d + sum ^ (b >> 5) + rol(k[sum % 4], b >> 27);
 				sum += delta;
-				c += (d << 4) + rol(k[(sum >> 11) % 4 + 4], d) ^
-					b + sum ^ (d >> 5) + rol(k[(sum >> 11) % 4], d >> 27);
+				c += (d << 4) + rol(k[(sum >> 11) % 4 + 4], d) ^ b + sum ^ (d >> 5) + rol(k[(sum >> 11) % 4], d >> 27);
 				const int32_t t = a;
 				a = b;
 				b = c;
@@ -72,11 +70,9 @@ namespace hide_string
 				c = b;
 				b = a;
 				a = t;
-				c -= (d << 4) + rol(k[(sum >> 11) % 4 + 4], d) ^
-					b + sum ^ (d >> 5) + rol(k[(sum >> 11) % 4], d >> 27);
+				c -= (d << 4) + rol(k[(sum >> 11) % 4 + 4], d) ^ b + sum ^ (d >> 5) + rol(k[(sum >> 11) % 4], d >> 27);
 				sum -= delta;
-				a -= (b << 4) + rol(k[sum % 4 + 4], b) ^
-					d + sum ^ (b >> 5) + rol(k[sum % 4], b >> 27);
+				a -= (b << 4) + rol(k[sum % 4 + 4], b) ^ d + sum ^ (b >> 5) + rol(k[sum % 4], b >> 27);
 			}
 			v[3] = d - k[3];
 			v[2] = c - k[2];
@@ -172,7 +168,6 @@ namespace hide_string
 		{
 			return size_crypt_;
 		}
-
 	};
 
 	inline xtea3::xtea3() = default;
