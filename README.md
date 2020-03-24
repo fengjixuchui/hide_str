@@ -1,3 +1,7 @@
-# Hide String
+# hide_str
 
-Intel Compiler not supported.
+C++11 compile time string encryption
+
+MSVC supported
+
+Intel Compiler supported

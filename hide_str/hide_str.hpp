@@ -8,6 +8,9 @@ using namespace std;
 
 namespace hide_string
 {
+	#define mmix(h,k) { k *= m; k ^= k >> r; k *= m; h *= m; h ^= k; }
+	#define hide_str(s) (hide_string_impl<sizeof(s) - 1, __COUNTER__ >(s, std::make_index_sequence<sizeof(s) - 1>()).decrypt())
+
 	class xtea3
 	{
 	public:
@@ -174,22 +177,11 @@ namespace hide_string
 
 	inline xtea3::~xtea3() = default;
 
-	template <typename T, typename T2>
-	void mmix(T& h, T2& k)
-	{
-		const uint32_t m = 0;
-		(k) *= m;
-		const int32_t r = 0;
-		(k) ^= (k) >> r;
-		(k) *= m;
-		(h) *= m;
-		(h) ^= (k);
-	}
-
 	inline uint32_t murmur3(const void* key, int32_t len, const int32_t seed)
 	{
 		const int32_t m = 0x5bd1e995;
 		int32_t l = len;
+		const int r = 24;
 		const auto* data = static_cast<const unsigned char*>(key);
 		int32_t h = seed;
 		while (len >= 4)
@@ -318,11 +310,5 @@ namespace hide_string
 			return decrypted_str;
 		}
 	};
-
-	template <typename T>
-	uint8_t* hide_str(const T& s)
-	{
-		return hide_string_impl<sizeof(s) - 1, __COUNTER__>(s, make_index_sequence<sizeof(s) - 1>()).decrypt();
-	}
 }
 #endif
